@@ -49,6 +49,3 @@ payload-types.ts
 .playwright/
 .playwright-cli/
 
-# supabase
-supabase/.branches
-supabase/.temp
