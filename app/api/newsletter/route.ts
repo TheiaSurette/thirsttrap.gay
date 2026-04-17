@@ -1,8 +1,34 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { rateLimit } from '@/lib/rate-limit';
+
+const RATE_LIMIT_CONFIG = {
+  maxRequests: 5,
+  windowMs: 60 * 60 * 1000, // 1 hour
+};
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0].trim();
+  return request.headers.get('x-real-ip') || 'unknown';
+}
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const { allowed, resetAt } = rateLimit(`newsletter:${ip}`, RATE_LIMIT_CONFIG);
+
+    if (!allowed) {
+      const retryAfterSec = Math.ceil((resetAt - Date.now()) / 1000);
+      return NextResponse.json(
+        { error: 'Too many signup attempts. Please try again later.' },
+        {
+          status: 429,
+          headers: { 'Retry-After': String(retryAfterSec) },
+        },
+      );
+    }
+
     const { email } = await request.json();
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

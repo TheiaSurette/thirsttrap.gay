@@ -1,4 +1,5 @@
-import { InstagramIcon } from '@/components/icons';
+import { Suspense } from 'react';
+import Footer from '@/components/Footer';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -34,22 +35,9 @@ export default function AboutPage() {
 
         <div className={`${styles.rule} mt-16 mb-6`} />
 
-        <footer className="pb-12">
-          <div className="flex justify-between items-center">
-            <span className="text-foreground/30 text-[10px] tracking-[0.15em] uppercase">
-              &copy; {new Date().getFullYear()} Thirst Trap
-            </span>
-            <a
-              href="https://instagram.com/thirst.trap.lowell"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-foreground/50 hover:text-neon-pink text-[10px] tracking-[0.15em] uppercase transition-colors"
-            >
-              <InstagramIcon className="w-3 h-3" />
-              @thirst.trap.lowell
-            </a>
-          </div>
-        </footer>
+        <Suspense>
+          <Footer />
+        </Suspense>
       </div>
     </div>
   );

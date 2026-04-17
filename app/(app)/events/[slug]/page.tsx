@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { unstable_cache } from 'next/cache';
 import Image from 'next/image';
@@ -5,6 +6,7 @@ import { Ticket, ExternalLink, MapPin } from 'lucide-react';
 import { InstagramIcon } from '@/components/icons';
 import { getPayloadClient } from '@/lib/payload';
 import { serializeRichText } from '@/lib/richText';
+import Footer from '@/components/Footer';
 import styles from './page.module.css';
 
 type EventLink = {
@@ -161,22 +163,9 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
 
         {/* Footer */}
         <div className={`${styles.rule} mb-6`} />
-        <footer className="pb-12">
-          <div className="flex justify-between items-center">
-            <span className="text-foreground/30 text-[10px] tracking-[0.15em] uppercase">
-              &copy; {new Date().getFullYear()} Thirst Trap
-            </span>
-            <a
-              href="https://instagram.com/thirst.trap.lowell"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-foreground/50 hover:text-neon-pink text-[10px] tracking-[0.15em] uppercase transition-colors"
-            >
-              <InstagramIcon className="w-3 h-3" />
-              @thirst.trap.lowell
-            </a>
-          </div>
-        </footer>
+        <Suspense>
+          <Footer />
+        </Suspense>
       </div>
     </div>
   );
