@@ -1,0 +1,155 @@
+.page {
+  background: #050410;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.wash {
+  position: fixed;
+  width: 80vw;
+  height: 80vw;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(255, 0, 174, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 60%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.mega {
+  font-family: var(--font-mega-monster), system-ui;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.85;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.backLink:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.heroImage {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+}
+
+.metaLabel {
+  color: rgba(255, 0, 174, 0.4);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.metaDivider {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.metaValue {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.description p {
+  margin-bottom: 1rem;
+}
+
+.description a {
+  color: rgba(255, 0, 174, 0.7);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.description a:hover {
+  color: rgba(255, 0, 174, 1);
+}
+
+.description strong {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.description ul,
+.description ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.description li {
+  margin-bottom: 0.5rem;
+}
+
+.description blockquote {
+  border-left: 2px solid rgba(255, 0, 174, 0.3);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: rgba(255, 255, 255, 0.35);
+  font-style: italic;
+}
+
+.eventLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.eventLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid rgba(255, 0, 174, 0.3);
+  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.eventLink:hover {
+  background: rgba(255, 0, 174, 0.1);
+  border-color: rgba(255, 0, 174, 0.6);
+  color: white;
+}
+
+.rule {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}

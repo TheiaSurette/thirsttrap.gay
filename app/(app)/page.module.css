@@ -1,0 +1,211 @@
+.page {
+  background: #050410;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.wash {
+  position: fixed;
+  width: 80vw;
+  height: 80vw;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(255, 0, 174, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 60%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.mega {
+  font-family: var(--font-mega-monster), system-ui;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.85;
+}
+
+.rule {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.5s ease;
+}
+
+.navVisible {
+  background: rgba(5, 4, 16, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Pulsing star */
+.star {
+  display: inline-block;
+  animation: starPulse 3s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Event row */
+.event {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.event:hover {
+  padding-left: 1rem;
+  border-color: rgba(255, 0, 174, 0.2);
+}
+
+/* Featured event image */
+.featuredImage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+/* Scrolling text wall */
+.textWall {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  font-family: var(--font-mega-monster), system-ui;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.025);
+  letter-spacing: -0.02em;
+  word-spacing: 0.3em;
+  padding: 1vh 0;
+}
+
+.textRow {
+  display: flex;
+  gap: 0.6em;
+  width: max-content;
+  animation: textRowScroll var(--duration) linear infinite var(--direction, normal);
+}
+
+@keyframes textRowScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Scroll indicator */
+.scrollIndicator {
+  width: 20px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scrollDot {
+  width: 3px;
+  height: 8px;
+  border-radius: 2px;
+  background: rgba(255, 0, 174, 0.5);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(10px); opacity: 0.3; }
+}
+
+/* Newsletter form */
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.newsletterInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.newsletterInput::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.newsletterInput:focus {
+  border-color: rgba(255, 0, 174, 0.4);
+}
+
+.newsletterInput:disabled {
+  opacity: 0.5;
+}
+
+.newsletterButton {
+  background: transparent;
+  border: 1px solid rgba(255, 0, 174, 0.4);
+  color: rgba(255, 0, 174, 0.7);
+  padding: 0.6rem 1.4rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.newsletterButton:hover {
+  background: rgba(255, 0, 174, 0.08);
+  border-color: rgba(255, 0, 174, 0.6);
+  color: rgba(255, 0, 174, 0.9);
+}
+
+.newsletterButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Marquee ticker */
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tickerInner {
+  display: inline-flex;
+  animation: tickerScroll 35s linear infinite;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

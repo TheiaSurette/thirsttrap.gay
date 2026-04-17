@@ -1,0 +1,47 @@
+import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+export async function POST(request: Request) {
+  try {
+    const { email } = await request.json();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { error: 'Please enter a valid email address.' },
+        { status: 400 },
+      );
+    }
+
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is not configured');
+      return NextResponse.json(
+        { error: 'Newsletter signup is not available right now.' },
+        { status: 500 },
+      );
+    }
+
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    if (!audienceId) {
+      console.error('RESEND_AUDIENCE_ID is not configured');
+      return NextResponse.json(
+        { error: 'Newsletter signup is not available right now.' },
+        { status: 500 },
+      );
+    }
+
+    const resend = new Resend(apiKey);
+    await resend.contacts.create({
+      email,
+      audienceId,
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Newsletter signup error:', error);
+    return NextResponse.json(
+      { error: 'Something went wrong. Please try again.' },
+      { status: 500 },
+    );
+  }
+}

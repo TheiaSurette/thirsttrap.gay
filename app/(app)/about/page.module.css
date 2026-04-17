@@ -1,0 +1,64 @@
+.page {
+  background: #050410;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.wash {
+  position: fixed;
+  width: 80vw;
+  height: 80vw;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(255, 0, 174, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 60%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.mega {
+  font-family: var(--font-mega-monster), system-ui;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.85;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.backLink:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rule {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.body {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.body p {
+  margin-bottom: 1.25rem;
+}
