@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
@@ -193,74 +193,6 @@ function EventRow({ event }: { event: EventData }) {
         <span className="text-foreground/20 text-sm font-bold hidden sm:block">{event.time}</span>
       </div>
     </Link>
-  );
-}
-
-function NewsletterForm() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
-
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-
-      if (!res.ok) {
-        setStatus('error');
-        setErrorMsg(data.error || 'Something went wrong.');
-        return;
-      }
-
-      setStatus('success');
-      setEmail('');
-    } catch {
-      setStatus('error');
-      setErrorMsg('Something went wrong. Please try again.');
-    }
-  }
-
-  return (
-    <div className={styles.newsletterForm}>
-      <p className="text-foreground/30 text-[10px] tracking-[0.2em] uppercase mb-4">
-        Stay in the loop
-      </p>
-      {status === 'success' ? (
-        <p className="text-neon-pink/70 text-sm tracking-wider">
-          You&apos;re on the list.
-        </p>
-      ) : (
-        <form onSubmit={handleSubmit} className="flex gap-3 max-w-md w-full">
-          <input
-            type="email"
-            placeholder="your@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className={styles.newsletterInput}
-            disabled={status === 'loading'}
-          />
-          <button
-            type="submit"
-            className={styles.newsletterButton}
-            disabled={status === 'loading'}
-          >
-            {status === 'loading' ? '...' : 'Subscribe'}
-          </button>
-        </form>
-      )}
-      {status === 'error' && (
-        <p className="text-red-400/70 text-xs mt-2">{errorMsg}</p>
-      )}
-    </div>
   );
 }
 
@@ -481,16 +413,6 @@ export default function HomePageClient({ featuredEvent, otherEvents }: HomePageC
                     </p>
                   </motion.div>
                 )}
-
-                {/* Newsletter */}
-                <motion.div
-                  className="mt-12"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9, ease: EASE }}
-                >
-                  <NewsletterForm />
-                </motion.div>
 
                 {/* Ticker */}
                 <motion.div

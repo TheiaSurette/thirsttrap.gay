@@ -138,62 +138,6 @@
   50% { transform: translateY(10px); opacity: 0.3; }
 }
 
-/* Newsletter form */
-.newsletterForm {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.newsletterInput {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 0.6rem 1rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-.newsletterInput::placeholder {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.newsletterInput:focus {
-  border-color: rgba(255, 0, 174, 0.4);
-}
-
-.newsletterInput:disabled {
-  opacity: 0.5;
-}
-
-.newsletterButton {
-  background: transparent;
-  border: 1px solid rgba(255, 0, 174, 0.4);
-  color: rgba(255, 0, 174, 0.7);
-  padding: 0.6rem 1.4rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.newsletterButton:hover {
-  background: rgba(255, 0, 174, 0.08);
-  border-color: rgba(255, 0, 174, 0.6);
-  color: rgba(255, 0, 174, 0.9);
-}
-
-.newsletterButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* Marquee ticker */
 .ticker {
   overflow: hidden;
