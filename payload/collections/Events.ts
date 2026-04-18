@@ -1,5 +1,5 @@
 import type { CollectionConfig, CollectionBeforeValidateHook, CollectionAfterChangeHook } from 'payload';
-import { revalidateCache } from '../../lib/revalidate';
+import { revalidateTag } from 'next/cache';
 
 const slugify = (text: string): string =>
   text
@@ -16,12 +16,12 @@ const generateSlug: CollectionBeforeValidateHook = ({ data }) => {
   return data;
 };
 
-const revalidateEvent: CollectionAfterChangeHook = async ({ doc }) => {
-  const tags = ['homepage', 'events'];
+const revalidateEvent: CollectionAfterChangeHook = ({ doc }) => {
+  revalidateTag('homepage', 'max');
+  revalidateTag('events', 'max');
   if (doc.slug) {
-    tags.push(`event-${doc.slug}`);
+    revalidateTag(`event-${doc.slug}`, 'max');
   }
-  await revalidateCache(tags);
   return doc;
 };
 
