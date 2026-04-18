@@ -7,6 +7,7 @@ import { InstagramIcon } from '@/components/icons';
 import { getPayloadClient } from '@/lib/payload';
 import { serializeRichText } from '@/lib/richText';
 import Footer from '@/components/Footer';
+import ImageLightbox from '@/components/ImageLightbox';
 import styles from './page.module.css';
 
 type EventLink = {
@@ -100,16 +101,17 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
 
         {/* Event image */}
         {imageUrl && (
-          <div className={`${styles.heroImage} mb-10`}>
-            <Image
-              src={imageUrl}
-              alt={event.title}
-              fill
-              className="object-contain"
-              priority
-              style={{ filter: 'drop-shadow(0 0 30px rgba(255, 0, 174, 0.1))' }}
-            />
-          </div>
+          <ImageLightbox src={imageUrl} alt={event.title}>
+            <div className={`${styles.heroImage} mb-10`}>
+              <Image
+                src={imageUrl}
+                alt={event.title}
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </div>
+          </ImageLightbox>
         )}
 
         {/* Title */}

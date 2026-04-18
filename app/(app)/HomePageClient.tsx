@@ -144,8 +144,7 @@ function FeaturedEvent({ event }: { event: EventData }) {
             alt={event.title}
             width={864}
             height={413}
-            className="w-full h-full object-contain"
-            style={{ filter: 'drop-shadow(0 0 30px rgba(255, 0, 174, 0.15))' }}
+            className="w-full h-full object-cover object-top"
           />
         </div>
         <div>
