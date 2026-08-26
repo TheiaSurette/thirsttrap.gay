@@ -14,13 +14,17 @@ export type EventData = {
   featured: boolean;
 };
 
-const getEvents = unstable_cache(
+const getUpcomingEvents = unstable_cache(
   async (): Promise<EventData[]> => {
     const payload = await getPayloadClient();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const { docs } = await payload.find({
       collection: 'events',
       where: {
         status: { equals: 'published' },
+        date: { greater_than_equal: today.toISOString() },
       },
       sort: 'date',
       limit: 50,
@@ -59,19 +63,20 @@ const getEvents = unstable_cache(
       };
     });
   },
-  ['homepage-events'],
-  { tags: ['homepage', 'events'] },
+  ['upcoming-events'],
+  { tags: ['homepage', 'events'], revalidate: 3600 },
 );
 
 export default async function HomePage() {
-  const events = await getEvents();
+  const events = await getUpcomingEvents();
 
-  const featuredEvent = events.find((e) => e.featured) || null;
-  const otherEvents = events.filter((e) => !e.featured);
+  const featuredIndex = events.findIndex((e) => e.featured);
+  const heroEvent = featuredIndex >= 0 ? events[featuredIndex] : events[0] ?? null;
+  const otherEvents = events.filter((_, i) => i !== (featuredIndex >= 0 ? featuredIndex : 0));
 
   return (
     <HomePageClient
-      featuredEvent={featuredEvent}
+      heroEvent={heroEvent}
       otherEvents={otherEvents}
     />
   );
