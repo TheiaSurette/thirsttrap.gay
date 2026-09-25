@@ -37,6 +37,10 @@ Follow [Google gateway setup and recovery](integrations/google-apps-script/READM
 
 The optional event end timestamp and New York timezone columns for both date pickers are added by `20260925_001_event_end`. Existing timestamps are preserved; the editor displays them in New York time using [Payload’s timezone support](https://payloadcms.com/docs/fields/date#timezones). Before releasing against an existing database, back it up and run the repository's Payload migration workflow with production credentials (`pnpm payload migrate`). Check `payload migrate:status` before and after.
 
-The production migration completed September 25, 2026 after a verified PostgreSQL archive backup. Migration status records it in batch 2; all original fields on the four existing events matched their pre-migration digest afterward. The private backup is stored outside the repository under `~/.codex/backups/thirsttrap.gay/` on the deploying Mac.
+The production migration completed September 25, 2026 after a verified PostgreSQL archive backup. The follow-up `20260925_002_event_timezone_name` renames the generated end-time timezone column to Payload's actual `enddate_tz` database name. Both migrations completed, and all original fields on the four existing events matched their pre-migration digest afterward. The private backup is stored outside the repository under `~/.codex/backups/thirsttrap.gay/` on the deploying Mac.
+
+## Production release
+
+The redesigned site was deployed to [www.thirsttrap.gay](https://www.thirsttrap.gay/) on September 25, 2026. Live checks verified the homepage, native form required-field validation, and `/about` redirect. With no current upcoming events, the homepage shows its empty state. The isolated Google delivery test passed, including one saved row across retries and confirmed notification receipt; no synthetic application was added to the production response sheet.
 
 Specifications and ticket references live in [docs/tickets/event-site](docs/tickets/event-site/README.md); consequential integration choices are recorded in [ADR 0002](docs/adr/0002-signed-google-apps-script-gateway.md).
