@@ -35,16 +35,21 @@ it.skipIf(process.env.RUN_GOOGLE_CONTRACT !== '1')(
       },
     };
     const context = { now: new Date(), rateKey: 'isolated-contract-test' };
+    let firstDelivery: Awaited<ReturnType<typeof gateway.save>> | undefined;
     const lostResponse = {
       ...gateway,
       save: async (delivery: Parameters<typeof gateway.save>[0]) => {
-        await gateway.save(delivery);
+        firstDelivery = await gateway.save(delivery);
         throw new Error('Simulated response loss after actual remote request');
       },
     };
     expect((await submitApplication(input, lostResponse, context)).status).toBe(
       'retry',
     );
+    expect(
+      firstDelivery,
+      'Initial Google save must succeed before testing response loss',
+    ).toEqual({ status: 'saved' });
     const freshGateway = applicationGateway(configuration);
     const results = await Promise.all([
       submitApplication(input, freshGateway, context),

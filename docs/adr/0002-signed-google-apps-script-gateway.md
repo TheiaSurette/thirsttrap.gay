@@ -1,6 +1,6 @@
 # Signed Apps Script gateway for confirmed application delivery
 
-Status: implemented; real-provider contract verification is still a release prerequisite.
+Status: implemented; isolated real-provider contract verification passed September 25, 2026. The production gateway is deployed and configured in Vercel, with a passing signed health check. Test notification receipt was confirmed in Gmail's Spam folder.
 
 The Next.js server sends validated applications to one Google Apps Script deployment owned by a team-controlled Google account. That deployment can write the designated response sheet and send mail through MailApp. It has no applicant-facing UI. HMAC signatures and a five-minute request window authenticate every operation; no Google credentials or gateway secret reach the browser.
 

@@ -87,6 +87,28 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { googleGateway } from '../../tests/support/google-gateway';
 
+it('authenticates and preserves Unicode names and answers through the Google gateway', async () => {
+  const provider = googleGateway(':memory:');
+  const unicodeInput = {
+    ...input,
+    name: 'Zoë — 🌈',
+    volunteer: { ...input.volunteer, description: '欢迎！I’d love to help.' },
+  };
+  try {
+    expect(
+      (await submitApplication(unicodeInput, provider.gateway, {
+        now: new Date(),
+        rateKey: 'unicode-test',
+      })).status,
+    ).toBe('saved');
+    expect(provider.rows()).toHaveLength(1);
+    expect(provider.rows()[0][1]).toBe(unicodeInput.name);
+    expect(provider.rows()[0][17]).toBe(unicodeInput.volunteer.description);
+  } finally {
+    provider.close();
+  }
+});
+
 it('reconciles a lost response after a server restart without duplicate rows', async () => {
   const directory = mkdtempSync(join(tmpdir(), 'thirst-intake-'));
   const context = { now: new Date(), rateKey: 'test' };

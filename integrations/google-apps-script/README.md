@@ -1,6 +1,10 @@
 # Google application gateway
 
-**Not deployed or verified against Google yet.** The site needs this deployment and two server-side environment variables before real applications can be delivered. Run the provider check against a dedicated test spreadsheet and controlled inbox before connecting production. The legacy event-series column (D) stays in place but is blank for native submissions; the current form no longer asks that question.
+**Isolated Google provider check passed on September 25, 2026; the production gateway is deployed and configured in Vercel.** The test verified a real save, recovery after a lost response, concurrent retry deduplication, and a sent notification. The owner confirmed receipt in Gmail's Spam folder. The production gateway's signed health check verified its target spreadsheet, response tab, and `contact@thirsttrap.gay` recipient without writing response rows. The legacy event-series column (D) stays in place but is blank for native submissions; the current form no longer asks that question.
+
+The production project is **Thirst Trap — Production application gateway**, owned by `theia@thirsttrap.gay`. Update that existing project's web-app deployment for future releases. `APPLICATIONS_GATEWAY_SECRET` is stored as a Vercel Production secret and cannot be pulled back to a local environment; keep its source in the gateway's Script properties and the team's password manager.
+
+The gateway must use `Utilities.Charset.UTF_8` when calculating request signatures. Google's default encoding failed the real-provider test for Unicode text; explicit UTF-8 matches the Node server and is covered by a regression test.
 
 ## Deploy a test instance
 

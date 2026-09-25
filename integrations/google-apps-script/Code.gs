@@ -17,7 +17,7 @@ function doPost(event) {
     const properties = PropertiesService.getScriptProperties();
     const secret = properties.getProperty('SHARED_SECRET');
     if (!secret || secret.length < 32 || typeof envelope.payload !== 'string' || envelope.payload.length > 40000) return output({ status: 'unauthorized' });
-    const signature = Utilities.computeHmacSha256Signature(envelope.payload, secret)
+    const signature = Utilities.computeHmacSha256Signature(envelope.payload, secret, Utilities.Charset.UTF_8)
       .map(b => ('0' + ((b + 256) % 256).toString(16)).slice(-2)).join('');
     if (!equalSignature(signature, envelope.signature)) return output({ status: 'unauthorized' });
     const request = JSON.parse(envelope.payload);

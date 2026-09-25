@@ -35,6 +35,8 @@ Follow [Google gateway setup and recovery](integrations/google-apps-script/READM
 
 ## Database migration
 
-The optional event end timestamp and New York timezone columns for both date pickers are added by `20260925_001_event_end`. Existing timestamps are preserved; the editor displays them in New York time using [Payload’s timezone support](https://payloadcms.com/docs/fields/date#timezones). Before releasing against an existing database, back it up and run the repository's Payload migration workflow with production credentials (`pnpm payload migrate`). Check `payload migrate:status` before and after. No migration has been run by this implementation in a real database.
+The optional event end timestamp and New York timezone columns for both date pickers are added by `20260925_001_event_end`. Existing timestamps are preserved; the editor displays them in New York time using [Payload’s timezone support](https://payloadcms.com/docs/fields/date#timezones). Before releasing against an existing database, back it up and run the repository's Payload migration workflow with production credentials (`pnpm payload migrate`). Check `payload migrate:status` before and after.
+
+The production migration completed September 25, 2026 after a verified PostgreSQL archive backup. Migration status records it in batch 2; all original fields on the four existing events matched their pre-migration digest afterward. The private backup is stored outside the repository under `~/.codex/backups/thirsttrap.gay/` on the deploying Mac.
 
 Specifications and ticket references live in [docs/tickets/event-site](docs/tickets/event-site/README.md); consequential integration choices are recorded in [ADR 0002](docs/adr/0002-signed-google-apps-script-gateway.md).

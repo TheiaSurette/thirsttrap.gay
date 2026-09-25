@@ -85,8 +85,20 @@ export function googleGateway(databasePath: string) {
       }),
     },
     Utilities: {
-      computeHmacSha256Signature: (payload: string, secret: string) =>
-        Array.from(createHmac('sha256', secret).update(payload).digest()),
+      Charset: { UTF_8: 'UTF-8' },
+      computeHmacSha256Signature: (
+        payload: string,
+        secret: string,
+        charset?: string,
+      ) => {
+        // Real Apps Script's implicit encoding did not match Node for Unicode.
+        // Require an explicit charset instead of silently assuming Node's default.
+        if (/[^\x00-\x7f]/.test(payload) && charset !== 'UTF-8')
+          throw new Error('Unicode signatures require explicit UTF-8');
+        return Array.from(
+          createHmac('sha256', secret).update(payload, 'utf8').digest(),
+        );
+      },
     },
     LockService: {
       getScriptLock: () => ({ tryLock: () => true, releaseLock: () => {} }),

@@ -49,7 +49,7 @@
 }
 .details {
   background: #050410de;
-  padding: 20px 0;
+  padding: 28px;
 }
 .meta {
   font-size: 16px;
@@ -225,7 +225,7 @@
   }
   .details {
     order: -1;
-    padding: 8px 0;
+    padding: 20px;
   }
   .title {
     font-size: 44px;
