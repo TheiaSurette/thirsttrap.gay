@@ -1,33 +1,48 @@
 'use client';
-
+import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const pathname = usePathname();
-
-  // Homepage renders its own nav with scroll behavior
-  if (pathname === '/') return null;
-
+  const [open, setOpen] = useState(false);
   return (
-    <nav className={`${styles.nav} ${styles.navVisible}`}>
-      <div className="flex items-center justify-between px-8 md:px-16 py-4">
-        <Link
-          href="/"
-          className="text-foreground/30 text-[10px] tracking-[0.3em] uppercase hover:text-foreground/60 transition-colors"
-        >
-          Thirst Trap
+    <header className={styles.header}>
+      <nav className={styles.nav} aria-label="Main navigation">
+        <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
+          <Image
+            src="/img/thirst-trap-logo.svg"
+            alt="Thirst Trap — home"
+            width={150}
+            height={72}
+            priority
+          />
         </Link>
-        <div className="flex items-center gap-8">
-          <Link href="/" className="text-foreground/25 hover:text-foreground/60 text-[10px] tracking-[0.2em] uppercase transition-colors">
+        <button
+          className={styles.menu}
+          type="button"
+          aria-expanded={open}
+          aria-controls="site-navigation"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? 'Close' : 'Menu'}
+        </button>
+        <div
+          id="site-navigation"
+          className={`${styles.links} ${open ? styles.open : ''}`}
+        >
+          <Link href="/#events" onClick={() => setOpen(false)}>
             Events
           </Link>
-          <Link href="/about" className="text-foreground/25 hover:text-foreground/60 text-[10px] tracking-[0.2em] uppercase transition-colors">
-            About
+          <Link
+            href="/get-involved"
+            className="action primary"
+            onClick={() => setOpen(false)}
+          >
+            Get involved <span aria-hidden="true">→</span>
           </Link>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }

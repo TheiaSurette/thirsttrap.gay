@@ -49,3 +49,6 @@ payload-types.ts
 .playwright/
 .playwright-cli/
 
+
+/test-results/
+/playwright-report/

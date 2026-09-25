@@ -11,7 +11,7 @@ type LexicalNode = {
   [key: string]: any;
 };
 
-type LexicalRoot = {
+export type LexicalRoot = {
   root?: {
     children?: LexicalNode[];
   };
@@ -73,7 +73,9 @@ function serializeNode(node: LexicalNode): string {
 /**
  * Serialize Lexical rich text JSON to HTML string.
  */
-export function serializeRichText(content: LexicalRoot | null | undefined): string {
+export function serializeRichText(
+  content: LexicalRoot | null | undefined,
+): string {
   if (!content?.root?.children) return '';
   return content.root.children.map(serializeNode).join('');
 }
@@ -92,7 +94,11 @@ export function extractPlainText(
   maxLength?: number,
 ): string {
   if (!content?.root?.children) return '';
-  const text = content.root.children.map(extractNodeText).join(' ').replace(/\s+/g, ' ').trim();
+  const text = content.root.children
+    .map(extractNodeText)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
   if (maxLength && text.length > maxLength) {
     return text.slice(0, maxLength).trimEnd() + '…';
   }

@@ -1,0 +1,224 @@
+.form,
+.success {
+  width: min(100%, 680px);
+  margin: 0 auto 100px;
+}
+.form h2,
+.success h2 {
+  font-size: clamp(1.65rem, 4vw, 2.3rem);
+  line-height: 1.15;
+  margin: 32px 0 10px;
+}
+.steps {
+  display: flex;
+  gap: 28px;
+  padding: 0 0 24px;
+  list-style: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted-foreground);
+}
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+.steps span {
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+}
+.steps [aria-current] {
+  color: var(--foreground);
+}
+.steps [aria-current] span {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--background);
+}
+.note,
+.privacy {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.fields,
+.choices {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.field,
+.choices {
+  margin-top: 28px;
+}
+.field label,
+.choices legend {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.field label span {
+  color: var(--muted-foreground);
+  font-weight: 400;
+}
+.field p,
+.choices > p {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  margin: 6px 0 12px;
+  line-height: 1.5;
+}
+.field input,
+.field select,
+.field textarea {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  background: #100b1d;
+  border: 1px solid #62566e;
+  border-radius: 4px;
+  padding: 13px 14px;
+  font: inherit;
+  color: var(--foreground);
+  min-height: 50px;
+}
+.field textarea {
+  resize: vertical;
+}
+.field option {
+  background: #100b1d;
+}
+.field [aria-invalid='true'] {
+  border-color: #ffaccd;
+}
+.choices label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.choices label:has(input:checked) {
+  border-color: var(--primary);
+  background: #ff00ae0d;
+}
+.choices input {
+  accent-color: var(--primary);
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+.roleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 12px;
+}
+.roleSection {
+  padding: 30px 0;
+  border-bottom: 1px solid var(--border);
+}
+.roleSection h3 {
+  font-family: var(--font-mega-monster), sans-serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--primary);
+  margin: 0;
+}
+.summary {
+  padding: 20px;
+  border: 1px solid #ffaccd;
+  border-radius: 4px;
+  background: #311629;
+  margin: 24px 0;
+  overflow-wrap: anywhere;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.summary ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+.summary p {
+  margin-top: 12px;
+}
+.summary code {
+  font-size: 0.8rem;
+}
+.error,
+.field p.error,
+.choices > p.error {
+  color: #ffaccd;
+  font-size: 0.9rem;
+  margin: 8px 0 0;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
+}
+.actions button {
+  cursor: pointer;
+}
+.actions button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.privacy {
+  margin-top: 30px;
+}
+.privacy a,
+.summary a {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+.success {
+  padding: 32px;
+  border: 1px solid var(--primary);
+  background: var(--card);
+}
+.success p {
+  line-height: 1.7;
+  margin: 20px 0;
+}
+.success a {
+  margin-top: 16px;
+}
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 480px) {
+  .steps {
+    gap: 16px;
+  }
+  .steps li {
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+  .roleGrid {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    flex-wrap: wrap;
+  }
+  .actions button {
+    flex: 1;
+  }
+  .success {
+    padding: 20px;
+  }
+}

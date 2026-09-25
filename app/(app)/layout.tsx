@@ -1,14 +1,14 @@
 import Navbar from '@/components/Navbar';
-
-export default async function AppLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+import Footer from '@/components/Footer';
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="site">
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Navbar />
       {children}
-    </>
+      <Footer />
+    </div>
   );
 }

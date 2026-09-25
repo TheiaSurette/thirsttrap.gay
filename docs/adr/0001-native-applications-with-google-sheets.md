@@ -1,0 +1,9 @@
+# Native applications with Google Sheets as the review destination
+
+The website will provide a styled, validated native application form and deliver submissions to the team's existing Google spreadsheet, targeting the supplied response tab (`gid=1808715276`). This preserves the team's chosen review destination while allowing an integrated website experience and applications covering multiple roles. It replaces the proposed Payload application-review workflow; existing Google responses remain in place, and the native form is not a Google Forms embed.
+
+The user chose this boundary during the redesign interview. The destination is [the existing application spreadsheet](https://docs.google.com/spreadsheets/d/1VJp3nZzBRH260rGipYrwhPEYt46F4FQaWDhiAql79fM/edit?gid=1808715276#gid=1808715276). Google delivery will happen on the server after validation, with credentials kept out of the browser. Each application produces one row containing all selected roles and their answers in the existing corresponding columns. This decision does not authorize restructuring existing response data or imply that appending a row creates a response inside Google Forms.
+
+Use confirmed direct delivery rather than a background application queue: report success only after Sheets confirms storage, preserve answers in the open form on failure, and make retries safe against duplicate rows. This keeps Sheets as the review destination without introducing a separate application backlog, at the cost of requiring an applicant to retry during a Google outage. Minimal technical delivery records may support duplicate protection. Team notification emails follow successful storage; their failure must not invalidate a saved application.
+
+Intentional repeat applications create new timestamped rows without overwriting previous submissions. The original Google Form remains open initially to preserve existing shared links, while the website directs people to the native form.

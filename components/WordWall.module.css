@@ -1,0 +1,52 @@
+.wall {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  overflow: hidden;
+  pointer-events: none;
+  color: #b7adc812;
+  mask-image: linear-gradient(to bottom, black, black 70%, transparent);
+}
+.row {
+  display: flex;
+  width: max-content;
+  font:
+    italic 700 clamp(3rem, 6vw, 6rem) / 1 var(--font-mega-monster),
+    sans-serif;
+  white-space: nowrap;
+  animation: drift linear infinite;
+}
+.row span {
+  padding-right: 0.4em;
+}
+.paused .row {
+  animation-play-state: paused;
+}
+.toggle {
+  position: absolute;
+  bottom: 8px;
+  right: max(20px, calc((100vw - 1160px) / 2));
+  z-index: 2;
+  color: var(--muted-foreground);
+  background: var(--background);
+  font-size: 12px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    animation: none;
+  }
+  .toggle {
+    display: none;
+  }
+}

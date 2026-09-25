@@ -1,4 +1,9 @@
-import type { CollectionConfig, CollectionBeforeValidateHook, CollectionAfterChangeHook } from 'payload';
+import type {
+  CollectionConfig,
+  CollectionBeforeValidateHook,
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+} from 'payload';
 import { revalidateTag } from 'next/cache';
 
 const slugify = (text: string): string =>
@@ -53,6 +58,13 @@ export const Events: CollectionConfig = {
   hooks: {
     beforeValidate: [generateSlug],
     afterChange: [revalidateEvent],
+    afterDelete: [
+      (({ doc }) => {
+        revalidateTag('homepage', 'max');
+        revalidateTag('events', 'max');
+        return doc;
+      }) satisfies CollectionAfterDeleteHook,
+    ],
   },
   fields: [
     {
@@ -89,7 +101,7 @@ export const Events: CollectionConfig = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description: 'Mark as the "Up Next" event on the homepage',
+        description: 'Feature this event on the homepage while it is upcoming',
       },
     },
     {
@@ -101,10 +113,40 @@ export const Events: CollectionConfig = {
       name: 'date',
       type: 'date',
       required: true,
+      timezone: {
+        defaultTimezone: 'America/New_York',
+        supportedTimezones: [
+          { label: 'New York (event local time)', value: 'America/New_York' },
+        ],
+      },
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
         },
+      },
+    },
+    {
+      name: 'endDate',
+      type: 'date',
+      timezone: {
+        required: true,
+        defaultTimezone: 'America/New_York',
+        supportedTimezones: [
+          { label: 'New York (event local time)', value: 'America/New_York' },
+        ],
+      },
+      admin: {
+        description:
+          'Optional end time. Otherwise the event ends at 6 AM after its scheduled night (America/New_York).',
+        date: { pickerAppearance: 'dayAndTime' },
+      },
+      validate: (value, { siblingData }) => {
+        if (!value) return true;
+        const { date } = siblingData as { date?: string };
+        return (
+          (!!date && new Date(value).getTime() > Date.parse(date)) ||
+          'End time must be after the start time.'
+        );
       },
     },
     {
@@ -137,7 +179,8 @@ export const Events: CollectionConfig = {
       name: 'eventLinks',
       type: 'array',
       admin: {
-        description: 'Links shown on the event detail page (tickets, RSVP, etc.)',
+        description:
+          'Links shown on the event detail page (tickets, RSVP, etc.)',
       },
       fields: [
         {
