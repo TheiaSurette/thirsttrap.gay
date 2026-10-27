@@ -33,6 +33,14 @@ Event policy tests cover New York scheduling, end cutoffs, drafts, feature selec
 
 Follow [Google gateway setup and recovery](integrations/google-apps-script/README.md). Required server variables are `APPLICATIONS_GATEWAY_URL` and `APPLICATIONS_GATEWAY_SECRET`. The Google deployment, its scopes, approved sending account, and a passing provider contract test are release prerequisites. The website does not claim success without confirmed sheet storage.
 
+## Newsletter signup
+
+The homepage newsletter form adds subscribers to the **Thirst Trap newsletter** segment in Resend. Configure server-only `RESEND_API_KEY` (with Contacts/Segments access) and `RESEND_NEWSLETTER_SEGMENT_ID` in Vercel for each deployment environment, or in a gitignored `.env.local` for local development. Never prefix the key with `NEXT_PUBLIC_`.
+
+The server validates the email, checks a honeypot, and confirms Resend storage before reporting success. Repeat signups reuse the contact; submitting again explicitly opts a previously unsubscribed contact back in. Provider failures preserve the entered email so visitors can retry. Send newsletters as Resend Broadcasts targeting this segment, with Resend’s unsubscribe link. Signing up does not send a welcome email.
+
+API reference: [Resend Contacts](https://resend.com/docs/api-reference/contacts/create-contact) and [segment membership](https://resend.com/docs/api-reference/contacts/add-contact-to-segment).
+
 ## Database migration
 
 The optional event end timestamp and New York timezone columns for both date pickers are added by `20260925_001_event_end`. Existing timestamps are preserved; the editor displays them in New York time using [Payload’s timezone support](https://payloadcms.com/docs/fields/date#timezones). Before releasing against an existing database, back it up and run the repository's Payload migration workflow with production credentials (`pnpm payload migrate`). Check `payload migrate:status` before and after.

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import WordWall from '@/components/WordWall';
+import NewsletterSignup from './newsletter/NewsletterSignup';
 import { extractPlainText } from '@/lib/richText';
 import type { EventView } from '@/lib/events/discovery';
 import styles from './page.module.css';
@@ -174,6 +175,7 @@ export default function HomePage({
             ))}
           </section>
         ) : null}
+        <NewsletterSignup />
         <section className={styles.involved} aria-labelledby="involved-title">
           <div>
             <h2 id="involved-title">Get involved.</h2>

@@ -1,0 +1,81 @@
+.newsletter {
+  margin-bottom: 32px;
+  padding: 42px;
+  border: 1px solid #8b5cf666;
+  border-top: 3px solid var(--primary);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+.newsletter h2 {
+  font:
+    italic 700 clamp(2.5rem, 4vw, 3.5rem) / 1.1 var(--font-mega-monster),
+    sans-serif;
+  margin: 16px 0;
+}
+.newsletter p {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+.form {
+  min-width: 0;
+}
+.form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.fields {
+  display: flex;
+  gap: 12px;
+}
+.fields input {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #554161;
+  border-radius: 8px;
+  color: var(--foreground);
+  background: var(--card);
+  font: inherit;
+  font-size: 16px;
+}
+.fields input::placeholder {
+  color: var(--muted-foreground);
+}
+.fields button {
+  flex-shrink: 0;
+}
+.newsletter .note {
+  font-size: 12px;
+  margin-top: 12px;
+}
+.newsletter .status {
+  color: var(--foreground);
+  margin-top: 14px;
+  font-size: 14px;
+}
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+@media (max-width: 1000px) {
+  .newsletter {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+@media (max-width: 700px) {
+  .newsletter {
+    padding: 28px 20px;
+  }
+  .fields {
+    flex-direction: column;
+  }
+}

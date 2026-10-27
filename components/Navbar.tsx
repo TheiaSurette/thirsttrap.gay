@@ -1,15 +1,12 @@
-'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
   return (
     <header className={styles.header}>
-      <nav className={styles.nav} aria-label="Main navigation">
-        <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
+      <div className={styles.nav}>
+        <Link href="/" className={styles.logo}>
           <Image
             src="/img/thirst-trap-logo.svg"
             alt="Thirst Trap — home"
@@ -18,31 +15,7 @@ export default function Navbar() {
             priority
           />
         </Link>
-        <button
-          className={styles.menu}
-          type="button"
-          aria-expanded={open}
-          aria-controls="site-navigation"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? 'Close' : 'Menu'}
-        </button>
-        <div
-          id="site-navigation"
-          className={`${styles.links} ${open ? styles.open : ''}`}
-        >
-          <Link href="/#events" onClick={() => setOpen(false)}>
-            Events
-          </Link>
-          <Link
-            href="/get-involved"
-            className="action primary"
-            onClick={() => setOpen(false)}
-          >
-            Get involved <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-      </nav>
+      </div>
     </header>
   );
 }
